@@ -11,13 +11,19 @@ Shopify's Script Editor allow you to write Ruby scripts that can modify the pric
 CAMPAIGNS = [
   # $5 off all items with the "sale" tag
   ItemCampaign.new(
-   TagSelector.new("sale"),
-   MoneyDiscount.new(5_00, "5$ off all items on sale",),
+    AndSelector.new(
+      TagSelector.new("sale"),
+      ExcludeGiftCartSelector.new,
+    ),
+    MoneyDiscount.new(5_00, "5$ off all items on sale",),
   ),
 
   # 10% off all items with a price lower than $100
   ItemCampaign.new(
-    PriceSelector.new(:lower_than, Money.new(cents: 100_00)),
+    AndSelector.new(
+      ExcludeGiftCartSelector.new,
+      PriceSelector.new(:lower_than, Money.new(cents: 100_00)),
+    ),
     PercentageDiscount.new(10, "10% off all items under 100$"),
   ),
 
