@@ -37,7 +37,7 @@ class RemoveDiscounts
   #
   def apply(line_item)
     # Reset discounted line price
-    new_line_price = line_item.original_line_price
+    new_line_price = line_item.line_price_was
 
     # Apply the new/reset line price to this line item with given message
     # describing the reason, which may be displayed in cart pages and
